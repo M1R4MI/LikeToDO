@@ -1,0 +1,22 @@
+
+@{
+    ViewData["TItle"] = "Login";
+}
+
+
+<form>
+    <div class="mb-4">
+        <label for="emailInput" class="form-label">Email Address</label>
+        <input type="email" class="form-control" id="emailInput" aria-describedby="emialHelp" required />
+        <div id="emailHelp" class="form-text">Write that you registered with.</div>
+    </div>
+    <div class="mb-4">
+        <label for="passwordInput" class="form-label">Password</label>
+        <input type="password" class="form-control" id="passwordInput" required />
+    </div>
+    <div class="mb-4 form-check">
+        <input type="checkbox" class="form-check-input" id="stayLoggedInput"/>
+        <label for="stayLoggedInput" class="form-check-label">Stay logged in.</label>
+    </div>
+    <button type="submit" class="btn btn-primary" asp-action="">Login</button>
+</form>

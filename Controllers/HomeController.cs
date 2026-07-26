@@ -4,21 +4,29 @@ using LikeToDo.Models;
 
 namespace LikeToDo.Controllers;
 
-public class TasksController : Controller
+public class HomeController : Controller
 {
-    private readonly ILogger<TasksController> _logger;
+    private readonly ILogger<HomeController> _logger;
 
-    public TasksController(ILogger<TasksController> logger)
+    public HomeController(ILogger<HomeController> logger)
     {
         _logger = logger;
     }
 
     public IActionResult Index()
     {
-        return View();
+        var viewModel = new IndexViewModel
+        {
+            Tasks = Data.GetMockTasks(),
+            Categories = Data.GetMockCategories(),
+            CurrentPage = 1,
+            TotalPages = 1
+        };
+
+        return View(viewModel);
     }
 
-    public IActionResult Privacy()
+    public IActionResult Description()
     {
         return View();
     }

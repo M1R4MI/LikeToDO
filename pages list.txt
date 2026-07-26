@@ -1,0 +1,6 @@
+1. Login Page
+2. Registration page
+3. Main page /w tasks
+4. Routine
+5. Notification
+6. 

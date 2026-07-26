@@ -1,0 +1,25 @@
+
+@{
+    ViewData["TItle"] = "Registration";
+}
+
+
+<form>
+    <div class="mb-4">
+        <label for="nameInput" class="form-label">Name</label>
+        <input type="text" class="form-control" id="nameInput"/>
+    </div>
+    <div class="mb-4">
+        <label for="usernameInput" class="form-label">Username</label>
+        <input type="text" class="form-control" id="usernameInput"/>
+    </div>
+    <div class="mb-4">
+        <label for="emailInput" class="form-label">Email Address</label>
+        <input type="email" class="form-control" id="emailInput" required />
+    </div>
+    <div class="mb-4">
+        <label for="passwordInput" class="form-label">Password</label>
+        <input type="password" class="form-control" id="passwordInput" required />
+    </div>
+    <button type="submit" class="btn btn-primary" asp-action="">Login</button>
+</form>
