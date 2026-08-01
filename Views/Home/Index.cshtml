@@ -52,18 +52,17 @@
                             @task.Name
                         </span>
                         
-                        @if (task.CategoryId.HasValue)
+                        @if (task.Category.Id )
                         {
-                            <span class="badge bg-info ms-2">@task.CategoryName</span>
+                            <span class="badge bg-info ms-2">@task.Category.Name</span>
                         }
                     </div>
                     <div class="text-muted small">
                         <i class="bi bi-calendar-event"></i> @task.DueTo?.ToString("dd.MM.yyyy")
                         <!-- Кнопка видалення -->
                         <form method="post" asp-action="Delete" asp-route-id="@task.Id" class="d-inline ms-3">
-                            <button type="submit" class="btn btn-sm btn-outline-danger" 
+                            <button type="submit" class="btn btn-sm btn-outline-danger bi bi-trash" 
                                     onclick="return confirm('Видалити завдання?');">
-                                <i class="bi bi-trash"></i>
                             </button>
                         </form>
                     </div>

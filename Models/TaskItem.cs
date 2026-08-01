@@ -9,12 +9,15 @@ namespace LikeToDo.Models
         [MaxLength(60)]
         public string Name { get; set; } = String.Empty;
 
-        public string? CategoryName { get; set; } = String.Empty;
+        public int CategoryId { get; set; }
+
+        [DataType(DataType.DateTime)]
+        [DisplayFormat(DataFormatString = "{0:dd-MM-yyyy}", ApplyFormatInEditMode = true)]
+        public DateTime? DueTo { get; set; }
 
         [MaxLength(400)]
         public string Description { get; set; } = String.Empty;
-        public int? CategoryId { get; set; }
         public bool IsCompleted { get; set; } = false;
-        public DateTime? DueTo { get; set; }
+        public Category Category { get; set; }
     }
 }
