@@ -1,6 +1,7 @@
 using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 using LikeToDo.Models;
+using Microsoft.Extensions.Logging;
 
 namespace LikeToDo.Controllers;
 
@@ -15,15 +16,7 @@ public class HomeController : Controller
 
     public IActionResult Index()
     {
-        var viewModel = new IndexViewModel
-        {
-            Tasks = Data.GetMockTasks(),
-            Categories = Data.GetMockCategories(),
-            CurrentPage = 1,
-            TotalPages = 1
-        };
-
-        return View(viewModel);
+        return View();
     }
 
     public IActionResult Description()

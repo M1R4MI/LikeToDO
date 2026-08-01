@@ -52,10 +52,10 @@
                             @task.Name
                         </span>
                         
-                        @if (task.Category.Id )
+                        @* @if ()
                         {
                             <span class="badge bg-info ms-2">@task.Category.Name</span>
-                        }
+                        } *@
                     </div>
                     <div class="text-muted small">
                         <i class="bi bi-calendar-event"></i> @task.DueTo?.ToString("dd.MM.yyyy")
