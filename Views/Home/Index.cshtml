@@ -4,6 +4,8 @@
     ViewData["Title"] = "Index";
 }
 
+
+
 <div class="container mt-4">
     <div class="d-flex justify-content-between align-items-center mb-4">
         <h2>Мої завдання</h2>
@@ -12,97 +14,43 @@
         </a>
     </div>
 
-    <!-- Форма пошуку та фільтрації -->
-    <div class="card shadow-sm mb-4">
-        <div class="card-body">
-            <form method="get" asp-action="Index" class="row g-3">
-                <div class="col-md-5">
-                    <input type="text" name="search" value="@Model.SearchQuery" 
-                           class="form-control" placeholder="Пошук завдань...">
-                </div>
-                <div class="col-md-4">
-                    <select name="categoryId" asp-items="@Model.Categories" class="form-select">
-                        <option value=""> Всі категорії </option>
-                    </select>
-                </div>
-                <div class="col-md-3">
-                    <button type="submit" class="btn btn-secondary w-100">Застосувати</button>
-                </div>
-            </form>
-        </div>
+    <div class="search">
+        <input type="text" asp-action=""  />
+        <button type="submit">Search</button>
+        <label for="dynamic-category-select">Категорія: </label>
+        <select class="dynamic-category-select"> 
+
+        </select>
     </div>
 
-    <!-- Список завдань -->
+    <div class="border border-primary border-2 opacity-52"></div>
     <div class="list-group mb-4">
-        @if (!Model.Tasks.Any())
+        @if(!Model.Tasks.Any())
         {
             <div class="alert alert-info text-center">Завдань не знайдено.</div>
         }
         else
         {
-            @foreach (var task in Model.Tasks)
+            @foreach (var item in Model.Tasks)
             {
                 <div class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
                     <div>
-                        <!-- Чекбокс для зміни статусу (обробляється через JS) -->
                         <input class="form-check-input me-2 task-checkbox" type="checkbox" 
-                               data-id="@task.Id" @(task.IsCompleted ? "checked" : "")>
+                               data-id="@item.Id" @(item.IsCompleted ? "checked" : "") />
                         
-                        <span class="@(task.IsCompleted ? "text-decoration-line-through text-muted" : "")">
-                            @task.Name
+                        <span class="@(item.IsCompleted ? "text-decoration-line-through text-muted" : "")">
+                            @item.Name
                         </span>
-                        
-                        @if (task.Category.Id )
-                        {
-                            <span class="badge bg-info ms-2">@task.Category.Name</span>
-                        }
-                    </div>
-                    <div class="text-muted small">
-                        <i class="bi bi-calendar-event"></i> @task.DueTo?.ToString("dd.MM.yyyy")
-                        <!-- Кнопка видалення -->
-                        <form method="post" asp-action="Delete" asp-route-id="@task.Id" class="d-inline ms-3">
-                            <button type="submit" class="btn btn-sm btn-outline-danger bi bi-trash" 
-                                    onclick="return confirm('Видалити завдання?');">
-                            </button>
-                        </form>
+                        <span class="badge text-bg-dark ms-2">@item.CategoryId</span>
+                        <button class="btn btn-outline-danger btn-sm me-1" title="Delete" aps-for="">
+                            <i class="bi bi-trash"></i>
+                        </button>
                     </div>
                 </div>
             }
         }
     </div>
-
-    <!-- Пагінація Bootstrap -->
-    @if (Model.TotalPages > 1)
-    {
-        <nav aria-label="Task pagination">
-            <ul class="pagination justify-content-center">
-                <li class="page-item @(Model.HasPreviousPage ? "" : "disabled")">
-                    <!-- Зберігаємо поточні фільтри при перемиканні сторінок -->
-                    <a class="page-link" asp-action="Index" 
-                       asp-route-page="@(Model.CurrentPage - 1)"
-                       asp-route-categoryId="@Model.SelectedCategoryId"
-                       asp-route-search="@Model.SearchQuery">Попередня</a>
-                </li>
-                
-                @for (int i = 1; i <= Model.TotalPages; i++)
-                {
-                    <li class="page-item @(i == Model.CurrentPage ? "active" : "")">
-                        <a class="page-link" asp-action="Index" 
-                           asp-route-page="@i"
-                           asp-route-categoryId="@Model.SelectedCategoryId"
-                           asp-route-search="@Model.SearchQuery">@i</a>
-                    </li>
-                }
-
-                <li class="page-item @(Model.HasNextPage ? "" : "disabled")">
-                    <a class="page-link" asp-action="Index" 
-                       asp-route-page="@(Model.CurrentPage + 1)"
-                       asp-route-categoryId="@Model.SelectedCategoryId"
-                       asp-route-search="@Model.SearchQuery">Наступна</a>
-                </li>
-            </ul>
-        </nav>
-    }
+    
 </div>
 
 <script>
@@ -115,25 +63,22 @@
                 const isCompleted = this.checked;
                 const textSpan = this.nextElementSibling;
 
-                // Відправляємо асинхронний запит на API метод контролера
                 const response = await fetch(`/Tasks/ToggleStatus/${taskId}`, {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
-                        // Якщо налаштовано AntiForgeryToken, його теж треба передати тут
+                        // передати AntiForgeryToken якщо є, його теж треба передати тут
                     },
                     body: JSON.stringify(isCompleted)
                 });
 
                 if (response.ok) {
-                    // Динамічно оновлюємо UI (перекреслюємо текст)
                     if (isCompleted) {
                         textSpan.classList.add("text-decoration-line-through", "text-muted");
                     } else {
                         textSpan.classList.remove("text-decoration-line-through", "text-muted");
                     }
                 } else {
-                    // Відкат UI у разі помилки сервера
                     this.checked = !isCompleted;
                     alert("Помилка при оновленні статусу.");
                 }

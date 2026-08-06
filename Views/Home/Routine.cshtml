@@ -3,3 +3,29 @@
     ViewData["TItle"] = "Routine Tasks";
 }
 
+<div>
+    <div>
+        <div class="list-group mb-4">
+            @if(!Model.Tasks.Any())
+            {
+                <div class="alert alert-info text-center">Завдань не знайдено.</div>
+            }
+            else
+            {
+                @foreach (var item in Model.Tasks)
+                {
+                    <div class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
+                        <div>
+                            <input class="form-check-input me-2 task-checkbox" type="checkbox" 
+                                data-id="@item.Id" @(item.IsCompleted ? "checked" : "") />
+                            
+                            <span class="@(item.IsCompleted ? "text-decoration-line-through text-muted" : "")">
+                                @item.Name
+                            </span>
+                        </div>
+                    </div>
+                }
+            }
+        </div>
+    </div>
+</div>

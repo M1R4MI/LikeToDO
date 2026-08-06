@@ -25,7 +25,6 @@ namespace LikeToDo.Models
                     Id = 1, 
                     Name = "Спроєктувати базу даних", 
                     CategoryId = 1, 
-                    CategoryName = "Робота", 
                     IsCompleted = true, 
                     DueTo = DateTime.Now.AddDays(-2) 
                 },
@@ -33,8 +32,7 @@ namespace LikeToDo.Models
                 { 
                     Id = 2, 
                     Name = "Виправити NullReferenceException у View", 
-                    CategoryId = 1, 
-                    CategoryName = "Робота", 
+                    CategoryId = 1,
                     IsCompleted = false, 
                     DueTo = DateTime.Now 
                 },
@@ -43,7 +41,6 @@ namespace LikeToDo.Models
                     Id = 3, 
                     Name = "Купити молоко та хліб", 
                     CategoryId = 2, 
-                    CategoryName = "Особисті справи", 
                     IsCompleted = false, 
                     DueTo = DateTime.Now.AddDays(1) 
                 },
@@ -52,7 +49,6 @@ namespace LikeToDo.Models
                     Id = 4, 
                     Name = "Записатися до стоматолога", 
                     CategoryId = 2, 
-                    CategoryName = "Особисті справи", 
                     IsCompleted = false, 
                     DueTo = DateTime.Now.AddDays(5) 
                 },
@@ -61,7 +57,6 @@ namespace LikeToDo.Models
                     Id = 5, 
                     Name = "Прочитати документацію EF Core", 
                     CategoryId = 3, 
-                    CategoryName = "Навчання", 
                     IsCompleted = false, 
                     DueTo = DateTime.Now.AddDays(3) 
                 },
@@ -69,8 +64,7 @@ namespace LikeToDo.Models
                 { 
                     Id = 6, 
                     Name = "Завдання без категорії", 
-                    CategoryId = null, 
-                    CategoryName = null, 
+                    CategoryId = 1, 
                     IsCompleted = false, 
                     DueTo = null 
                 }
